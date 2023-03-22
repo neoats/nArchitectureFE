@@ -1,0 +1,15 @@
+
+<tr class="list-group">
+  <td   [class]="getAllCategoryClass()" routerLink = "/products">All Products</td>
+
+  <td (click)="setCurrentCategory(category)" *ngFor="let category of categories"
+  routerLink="/products/category/{{category.categoryId}}"
+  [class]="getCurrentCategoryClass(category) " >{{category.categoryName}}</td>
+</tr>
+<h5 *ngIf="currentCategory"> {{currentCategory.categoryName}} selected</h5>
+
+
+<!-- <td (click)="setCurrentCategory(category)" *ngFor="let category of categories"
+  routerLink="/products/category/{{category.categoryId}}"
+  [class]="getCurrentCategoryClass(category)">{{category.categoryName}}</td>
+ -->
