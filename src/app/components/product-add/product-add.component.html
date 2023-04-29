@@ -6,8 +6,16 @@
       </div>
       <div class="card-body">
         <form [formGroup]="productAddForm">
-          <label>Product Name</label>
+       <!--    <div class="mb-3">
+            <label>Product Name</label>
+            <div class="form-group">
+              <input type="text" id="productId" formControlName="productName" class="form-control"
+                placeholder="Product Name" />
+            </div>
+          </div>
+          <br> -->
           <div class="mb-3">
+            <label>Product Name</label>
             <div class="form-group">
               <input type="text" id="productName" formControlName="productName" class="form-control"
                 placeholder="Product Name" />
@@ -25,7 +33,7 @@
           <div class="mb-3"></div>
           <label>Units Stock</label>
           <div class="form-group">
-            <input type="number" id="unitsInStock" formControlName="categoryId" class="form-control"
+            <input type="number" id="unitsInStock" formControlName="unitsInStock" class="form-control"
               placeholder="Units Stock" />
           </div>
           <br>

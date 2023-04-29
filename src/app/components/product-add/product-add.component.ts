@@ -1,9 +1,5 @@
-import { Component, NgZone } from '@angular/core';
-import {
-  FormGroup,
-  FormBuilder,
-  Validators,
-} from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -17,8 +13,7 @@ export class ProductAddComponent {
   constructor(
     private formBuilder: FormBuilder,
     private productService: ProductService,
-    private toastrService: ToastrService,
-    private ngZone: NgZone
+    private toastrService: ToastrService
   ) {}
   ngOnInit(): void {
     this.createProductAddForm();
@@ -32,30 +27,27 @@ export class ProductAddComponent {
     });
   }
 
-/*   add() {
-    if (!this.productAddForm.valid) {
-      let productModel = Object.assign({}, this.productAddForm.value);
-      this.productService.add(productModel).subscribe((data) => {
-        console.log(data);
-        this.toastrService.success(data.message, 'Added');
-      });
-    } else {
-      this.toastrService.error('Format Error');
-    }
-  } */
   add() {
-    if (!this.productAddForm.valid) {
-      let productModel = Object.assign({}, this.productAddForm.value);
-      this.ngZone.runOutsideAngular(() => {
-        this.productService.add(productModel).subscribe(data => {
+    if (this.productAddForm.valid) {
+
+      this.productService.add(this.productAddForm.value).subscribe({
+        next: (data) => {
           console.log(data);
-          this.ngZone.run(() => {
-            this.toastrService.success(productModel, 'Added');
-          });
-        });
+          this.toastrService.success(data.message, 'Added');
+        },
+        error: (errorResponse) => {
+          if (errorResponse.error?.Errors?.length > 0) {
+            errorResponse.error.Errors.forEach((error: { ErrorMessage: string; }) => {
+              this.toastrService.error(error.ErrorMessage, 'Validation Errors');
+            });
+          }
+          console.log(errorResponse.error);
+        },
       });
     } else {
       this.toastrService.error('Format Error');
     }
   }
+
+
 }

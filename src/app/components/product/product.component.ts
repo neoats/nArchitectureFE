@@ -1,4 +1,4 @@
-import { Component, enableProdMode, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from 'src/app/services/cart.service';
@@ -31,55 +31,46 @@ export class ProductComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('init works');
-    enableProdMode();
-  /* this.activatedRoute.params.subscribe((params) => {
+
+  this.activatedRoute.params.subscribe((params) => {
       if (params['categoryId']) {
         this.getProductsByCategory(params['categoryId']);
       } else {
         this.getProducts();
       }
-    }); */
-    this.getProducts();
+    });
+
   }
 
   getProducts(){
 
-  /*   this.productService.getProducts().subscribe((response)=>{
+     this.productService.getProducts().subscribe((response)=>{
       this.products = response.data;
       console.log('Products response:', response)
       this.dataLoaded = true;
     },(error)=>{
       console.log(error)
-    }) */
-    this.productService.getProducts().subscribe({
-      next: (response) => {
-        this.products = response.data;
-        console.log('Products response:', response)
-        this.dataLoaded = true;
-      },
-      error: (error) => {
-        console.log(error)
-      }
-    });
+    })
+
   }
 
   getProductsByCategory(categoryId:number){
-  /*   this.dataLoaded = true;
+    this.dataLoaded = true;
     this.productService.getProductsByCategory(categoryId).subscribe(response=>{
-      this.products = response.data
+      this.products = response.data;
       this.dataLoaded = false;
     },error=>{
       console.log(error)
-    }) */
-    this.productService.getProductsByCategory(categoryId).subscribe({
+    })
+  /*   this.productService.getProductsByCategory(categoryId).subscribe({
       next: (response) => {
-        this.products = response.data;
+        this.products = response.data;;
         this.dataLoaded = false;
       },
       error: (error) => {
         console.log(error)
       }
-    });
+    }); */
   }
 
   addToCart(product: Product) {

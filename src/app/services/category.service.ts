@@ -12,13 +12,13 @@ export class CategoryService {
   apiUrl2: string = 'http://localhost:5000/api/categories/getall';
   constructor(private httpClient: HttpClient) {}
 
-/*   getCategories(): Observable<ListResponseModal<Category>> {
+  getCategories(): Observable<ListResponseModal<Category>> {
     let newApiUrl=this.apiUrl+"categories/getall"
     return this.httpClient.get<ListResponseModal<Category>>(newApiUrl);
-  } */
-  getCategories(): Observable<ListResponseModal<Category>>  {
-    let newApiUrl=this.apiUrl+"categories/getall"
-    return this.httpClient.get<ListResponseModal<Category>> (newApiUrl);
   }
+/*   getCategories(): Observable<any>  {
+    let newApiUrl=this.apiUrl+"categories/getall"
+    return this.httpClient.get(newApiUrl);
+  } */
 
 }

@@ -1,37 +1,92 @@
-<div *ngIf="dataLoaded==false" class="spinner-border text-primary" role="status">
-  <span class="visually-hidden">Loading...</span>
-</div>
-<!-- *ngIF="dataLoaded==true" -->
- <div class="mb-3">
-  <label for="exampleFormControlInput1" class="form-label"><h6>Search</h6></label>
-  <input type="text" [(ngModel)]="filterText" class="form-control" id="filter-text" placeholder="product name">
-</div>
-<div *ngIf="filterText" class="alert alert-success">
-You search {{filterText}}
-</div>
-<table class="table">
-  <thead>
-    <tr  >
-      <th>Product ID</th>
-      <th>Category ID</th>
-      <th>Product Name</th>
-      <th>Unit Price</th>
-      <th>Unit Vat</th>
-      <th>Units in Stock</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
+<div class="container">
+<app-navi></app-navi>
+<div class="row">
+  <div class="col-md-3">
+    <app-category></app-category>
+  </div>
+  <div class="col-md-9">
+    <div *ngIf="dataLoaded==false" class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <!-- *ngIF="dataLoaded==true" -->
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">
+        <h6>Search</h6>
+      </label>
+      <input type="text" [(ngModel)]="filterText" class="form-control" id="filter-text" placeholder="product name">
+    </div>
+    <div *ngIf="filterText" class="alert alert-success">
+      You search {{filterText}}
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Product ID</th>
+          <th>Category ID</th>
+          <th>Product Name</th>
+          <th>Unit Price</th>
+          <th>Unit Vat</th>
+          <th>Units in Stock</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
 
-      <tr *ngFor="let product of products | filterPipe:filterText">
-        <th scope="row">{{product.productId}}</th>
-        <td>{{product.categoryId}}</td>
-        <td>{{product.productName | uppercase}}</td>
-        <td>{{product.unitPrice | currency:"EUR"}}</td>
-        <td>{{product.unitPrice |vatAdded:1.18 | currency:"EUR"}}</td>
-        <td >{{product.unitsInStock|ifStockNo }}</td>
-        <td><button (click)="addToCart(product)" type="button" class="btn btn-success btn-xs">Add Cart</button></td>
-      </tr>
+        <tr *ngFor="let product of products | filterPipe:filterText">
+          <th scope="row">{{product.productId}}</th>
+          <td>{{product.categoryId}}</td>
+          <td>{{product.productName | uppercase}}</td>
+          <td>{{product.unitPrice | currency:"EUR"}}</td>
+          <td>{{product.unitPrice |vatAdded:1.18 | currency:"EUR"}}</td>
+          <td>{{product.unitsInStock|ifStockNo }}</td>
+          <td><button (click)="addToCart(product)" type="button" class="btn btn-success btn-xs">Add Cart</button></td>
+        </tr>
 
-  </tbody>
-</table>
+      </tbody>
+    </table>
+
+
+     <div *ngIf="dataLoaded==false" class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+
+    *ngIF="dataLoaded==true"
+    <table class="table" *ngIf="dataLoaded">
+      <thead>
+        <tr>
+          <th>Product ID</th>
+          <th>Category ID</th>
+          <th>Product Name</th>
+          <th>Unit Price</th>
+          <th>Unit Vat</th>
+          <th>Units in Stock</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products | filterPipe:filterText">
+          <th scope="row">{{product.productId}}</th>
+          <td>{{product.categoryId}}</td>
+          <td>{{product.productName | uppercase}}</td>
+          <td>{{product.unitPrice | currency:"EUR"}}</td>
+          <td>{{product.unitPrice | vatAdded:1.18 | currency:"EUR"}}</td>
+          <td>{{product.unitsInStock | ifStockNo}}</td>
+          <td><button (click)="addToCart(product)" type="button" class="btn btn-success btn-xs">Add Cart</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div [ngClass]="{'alert alert-success': filterText}" role="alert" *ngIf="filterText">
+      You searched for "{{ filterText }}"
+    </div>
+
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label"><h6>Search</h6></label>
+      <input type="text" [(ngModel)]="filterText" class="form-control filter-text" placeholder="product name">
+    </div>
+
+
+
+
+  </div>
+</div>
